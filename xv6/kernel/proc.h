@@ -10,6 +10,8 @@
 #define SEG_TSS   6  // this process's task state
 #define NSEGS     7
 
+#include "pstat.h"
+
 // Per-CPU state
 struct cpu {
   uchar id;                    // Local APIC ID; index into cpus[] below
@@ -77,6 +79,8 @@ struct proc {
   int tickets;
   int ticks;
 };
+
+void getprocinfo(struct pstat*);
 
 // Process memory is laid out contiguously, low addresses first:
 //   text

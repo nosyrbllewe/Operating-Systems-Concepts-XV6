@@ -113,8 +113,12 @@ sys_settickets(void)
 int
 sys_getpinfo(void)
 {
-	//struct pstat* stats;
-	//if(argptr(0, stats) < 0)
-	//	return -1;
+	struct pstat* stats;
+	if(argptr(0, (void*)&stats, sizeof(*stats)) < 0)
+		return -1;
+	if(stats == NULL)
+		return -1;
+	getprocinfo(stats);
+	cprintf("%d\n",stats->inuse[63]);
 	return 0;
 }

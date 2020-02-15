@@ -462,3 +462,25 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+void getprocinfo(struct pstat* info)
+{
+	struct proc *p;
+	acquire(&ptable.lock);
+	int i = 0;
+	for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+		if(p->state == EMBRYO || p->state == ZOMBIE)
+			continue;
+		
+		if(p->state == RUNNING)
+			info->inuse[i] = 1;
+		else
+			info->inuse[i] = 0;
+		
+		info->pid[i] = p->pid;
+		info->tickets[i] = p->tickets;
+		info->ticks[i] = p->ticks;
+		i++;
+	}
+	release(&ptable.lock);
+}
