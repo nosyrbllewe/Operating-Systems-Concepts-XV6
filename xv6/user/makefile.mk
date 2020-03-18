@@ -21,6 +21,9 @@ USER_PROGS := \
 	getpidcounttester\
 	setticketstest\
 	getpinfotest\
+	memtest1\
+	memtest2\
+	memtest3\
 	zombie
 
 USER_PROGS := $(addprefix user/, $(USER_PROGS))
