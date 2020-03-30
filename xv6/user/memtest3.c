@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 	int fd = open("tmp", O_WRONLY | O_CREATE );
 	if(fd == -1)
 	{
+		printf(1, "Failed to open\n");
 		printf(1, "TEST FAILED\n");
 		exit();
 		return -1;
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
 	arg = (char*) 0x0;
 	if(write(fd, arg, 10) != -1)
 	{
+		printf(1, "Null Pointer\n");
 		printf(1, "TEST FAILED\n");
 		exit();
 		return -1;
@@ -27,6 +29,8 @@ int main(int argc, char *argv[])
 	arg = (char*) 0x400;
 	if(write(fd, arg, 1024) != -1)
 	{
+		
+		printf(1, "Null Non-Zero Pointer\n");
 		printf(1, "TEST FAILED\n");
 		exit();
 		return -1;
@@ -35,6 +39,7 @@ int main(int argc, char *argv[])
 	arg = (char*) 0xfff;
 	if(write(fd, arg, 1) != -1)
 	{
+		printf(1, "Out of bounds");
 		printf(1, "TEST FAILED\n");
 		exit();
 		return -1;
